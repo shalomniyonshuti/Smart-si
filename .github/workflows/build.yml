@@ -9,14 +9,10 @@ jobs:
       - name: Get files
         uses: actions/checkout@v4
 
-      - name: Show files
-        run: ls -la
-
       - name: Unzip project
         run: |
           mkdir -p _src
           python3 -m zipfile -e SmartTranslate.zip _src
-          find _src -maxdepth 3 -name "settings.gradle.kts"
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -35,7 +31,6 @@ jobs:
       - name: Build APK
         run: |
           DIR=$(dirname "$(find _src -name settings.gradle.kts | head -1)")
-          echo "Building in $DIR"
           cd "$DIR"
           gradle assembleDebug --stacktrace
 
